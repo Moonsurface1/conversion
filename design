@@ -1,0 +1,134 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'design.ui'
+#
+# Created by: PyQt4 UI code generator 4.11.4
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt4 import QtCore, QtGui
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName(_fromUtf8("MainWindow"))
+        MainWindow.resize(639, 689)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        MainWindow.setFont(font)
+        self.centralwidget = QtGui.QWidget(MainWindow)
+        self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
+        self.label = QtGui.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(9, 9, 600, 50))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label.setFont(font)
+        self.label.setObjectName(_fromUtf8("label"))
+        self.labelSelectFile = QtGui.QLabel(self.centralwidget)
+        self.labelSelectFile.setGeometry(QtCore.QRect(10, 90, 381, 31))
+        font = QtGui.QFont()
+        font.setPointSize(17)
+        self.labelSelectFile.setFont(font)
+        self.labelSelectFile.setObjectName(_fromUtf8("labelSelectFile"))
+        self.LabelFiletoProcess_2 = QtGui.QLabel(self.centralwidget)
+        self.LabelFiletoProcess_2.setGeometry(QtCore.QRect(20, 300, 131, 23))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.LabelFiletoProcess_2.setFont(font)
+        self.LabelFiletoProcess_2.setObjectName(_fromUtf8("LabelFiletoProcess_2"))
+        self.pushButton = QtGui.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(420, 90, 191, 31))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.closeButton = QtGui.QPushButton(self.centralwidget)
+        self.closeButton.setGeometry(QtCore.QRect(480, 620, 141, 41))
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.closeButton.setFont(font)
+        self.closeButton.setObjectName(_fromUtf8("closeButton"))
+        self.runconvButton = QtGui.QPushButton(self.centralwidget)
+        self.runconvButton.setGeometry(QtCore.QRect(420, 250, 196, 32))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.runconvButton.setFont(font)
+        self.runconvButton.setObjectName(_fromUtf8("runconvButton"))
+        self.LabelFiletoProcess = QtGui.QLabel(self.centralwidget)
+        self.LabelFiletoProcess.setGeometry(QtCore.QRect(10, 140, 126, 23))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.LabelFiletoProcess.setFont(font)
+        self.LabelFiletoProcess.setObjectName(_fromUtf8("LabelFiletoProcess"))
+        self.line_2 = QtGui.QFrame(self.centralwidget)
+        self.line_2.setGeometry(QtCore.QRect(10, 210, 600, 16))
+        self.line_2.setFrameShape(QtGui.QFrame.HLine)
+        self.line_2.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line_2.setObjectName(_fromUtf8("line_2"))
+        self.line = QtGui.QFrame(self.centralwidget)
+        self.line.setGeometry(QtCore.QRect(10, 70, 600, 16))
+        self.line.setFrameShape(QtGui.QFrame.HLine)
+        self.line.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line.setObjectName(_fromUtf8("line"))
+        self.messageFrame = QtGui.QListWidget(self.centralwidget)
+        self.messageFrame.setGeometry(QtCore.QRect(20, 330, 601, 271))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.messageFrame.setFont(font)
+        self.messageFrame.setFrameShape(QtGui.QFrame.WinPanel)
+        self.messageFrame.setObjectName(_fromUtf8("messageFrame"))
+        self.choseninput = QtGui.QListWidget(self.centralwidget)
+        self.choseninput.setGeometry(QtCore.QRect(10, 170, 601, 31))
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.choseninput.sizePolicy().hasHeightForWidth())
+        self.choseninput.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.choseninput.setFont(font)
+        self.choseninput.setObjectName(_fromUtf8("choseninput"))
+        self.labelSelectFile_2 = QtGui.QLabel(self.centralwidget)
+        self.labelSelectFile_2.setGeometry(QtCore.QRect(10, 240, 381, 31))
+        font = QtGui.QFont()
+        font.setPointSize(17)
+        self.labelSelectFile_2.setFont(font)
+        self.labelSelectFile_2.setObjectName(_fromUtf8("labelSelectFile_2"))
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtGui.QStatusBar(MainWindow)
+        self.statusbar.setObjectName(_fromUtf8("statusbar"))
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(_translate("MainWindow", "PneumoConvert", None))
+        self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; color:#005500;\">This tool converts out Export text files from </span><span style=\" font-size:12pt; font-style:italic; color:#005500;\">S. pneumoniae</span><span style=\" font-size:12pt; color:#005500;\"> WGS pipeline.</span></p><p><span style=\" font-size:12pt; color:#005500;\">The output file &quot;newmolis.txt&quot; can be used for MOLIS upload. </span></p></body></html>", None))
+        self.labelSelectFile.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600; color:#000000;\">Click to select input WGS file (.txt files only):</span></p></body></html>", None))
+        self.LabelFiletoProcess_2.setText(_translate("MainWindow", "Message Frame", None))
+        self.pushButton.setText(_translate("MainWindow", "SELECT FILE", None))
+        self.closeButton.setText(_translate("MainWindow", "Close", None))
+        self.runconvButton.setText(_translate("MainWindow", "RUN CONVERSION", None))
+        self.LabelFiletoProcess.setText(_translate("MainWindow", "File selected:", None))
+        self.labelSelectFile_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600; color:#000000;\">Click to select out folder and convert file:</span></p></body></html>", None))
+
