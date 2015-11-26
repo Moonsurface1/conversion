@@ -1,0 +1,141 @@
+#GUI script to allow users to convert text output files from the WGS pipeline to the 
+#format required for MOLIS upload and triggering of glossary codes. Prerequisites are 
+#Python with PyQt4 module and design.py design file in the same folder as script. 
+
+
+from PyQt4 import QtGui  # Import the PyQt4 module we'll need
+import sys  # We need sys so that we can pass argv to QApplication
+import design  # This file holds our MainWindow and all design related things
+import os
+
+class convertApp(QtGui.QMainWindow, design.Ui_MainWindow):
+    def __init__(self):
+       super(self.__class__, self).__init__()
+       self.setupUi(self)  # This is defined in design.py file automatically
+       # It sets up layout and widgets that are defined
+       self.pushButton.clicked.connect(self.browse_inputfile)#browse for input molis file
+       self.runconvButton.clicked.connect(self.run_conversion)#enable push button for conversion
+       self.closeButton.clicked.connect(self.close_app)
+       
+    def browse_inputfile(self):
+       global molis
+       self.choseninput.clear() # In case there are any existing elements in the list
+       molis = open(QtGui.QFileDialog.getOpenFileName(self, "Open Data File", "", "txt data files (*.txt)"),'r+')
+       self.choseninput.addItem(molis.name)#Display the path of the open file in chosen input box
+                 
+    def run_conversion(self,file_name):
+       global molis
+       molis_list =[]
+       
+       #ask for save path for output file
+       save_path = QtGui.QFileDialog.getExistingDirectory(self,"Pick an output folder")
+       print str(save_path)    
+       self.messageFrame.addItem("Output file save path is " + str(save_path)) 
+       
+       if molis: # if user didn't pick a file don't continue
+          with molis as source:#read in molis file to list
+             for line in source:
+                fields = line.split('\t')
+                molis_list.append(fields)
+          molis.close()
+                     
+          #Exit program if input molis file is incorrect.
+          test = molis_list[0]
+          test = test[0]
+
+          if test != "SAMPLEID":
+             print "*********INCORRECT FILE SELECTED*********"
+             self.messageFrame.addItem("*********INCORRECT FILE SELECTED*********")
+                         
+          else:
+             headers = molis_list[0]
+             headers[-1] = headers[-1][-0:-1]
+             print "headers are " + str(headers)
+             molis_list.pop(0)
+       
+             #Dictionary of pipeline outputs to molis codes
+             molis_dict = {'01':'1', '02':'2', '03':'3','04':'4','05':'5', '08':'8',
+             '06A':'6a','06B':'6b','06C':'6c','06D':'6d','06E(6A)':'6ea','06E(6B)':'6eb',
+             '07A':'7a','07B':'7b','07C':'7c','07F':'7f','09A':'9a','09L':'9l','09N':'9n',
+             '09V':'9v','10A':'10a','10B':'10b','10C':'10c','10F':'10f','11A':'11a',
+             '11B':'11b','11C':'11c','11D':'11d','11F':'11f','12A':'12a','12B':'12b',
+             '12F':'12f','15A':'15a','15B':'15b','15B/C':'15bc','15C':'15c','15F':'15f',
+             '16A':'16a','16F':'16f','17A':'17a','17F':'17f','18A':'18a','18B':'18b',
+             '18C':'18c','18F':'18f','19A':'19a','19B':'19b','19C':'19c','19F':'19f',
+             '22A':'22a','22F':'22f','23A':'23a','23B':'23b','23B1':'23b1','23F':'23f',
+             '24A':'24a','24B':'24b','25A':'25a','25F':'25f','28A':'28a','28F':'28f',
+             '33A':'33a','33B':'33b','33C':'33c','33D':'33d','33F':'33f','35A':'35a',
+             '35B':'35b','35C':'35c','35F':'35f','41A':'41a','41F':'41f','47A':'47a',
+             '47F':'47f',"Reference data not available ['24B', '24F']":'24bf',
+             "Reference data not available ['32A', '32F']":'32af','Serotype undetermined':'ud',
+             'Failed':'fail'}
+  
+             newfile = 'newmolis.txt'
+             checkfile = 'check_list.txt'
+      
+             #write a new file with check_list
+             check_list = open(checkfile,'w')
+             check_list.write("Molis ID" + "\t" + "Serotype" "\r\n")
+
+            #UPDATE BARCODE AND SEROTYPE OUTPUT WITH MOLIS RESULT CODE and write mix text file  
+
+             for item in molis_list:
+                #item[-1] = item[-1][0:-2]#remove new line from molis list.
+                check2 = "Not changed"
+                length = len(item)#for check if item[17] (serotype) exists.
+                print item
+                print ""
+
+                if length > 17: 
+                   serotype = item[17]
+
+                   if serotype in molis_dict:
+                      item[17] = molis_dict[serotype]
+                      check2 = "Changed"
+      
+                   elif serotype[0:5] == "Mixed":
+                      #change code to mix
+                      item[17] = "mix"
+                      check2 = "Mixed"
+                      #write information to console for mixed samples
+                      print " Mixed serotypes detected "
+ 
+                check_list.write(str(item[0]) + "\t" + check2 + "\r\n") #write check status to check file
+
+             #write a new file with new molis_list
+             new_molis = open(newfile,'w')
+
+                  #write headers to new file
+             for header in headers:
+                new_molis.write(str(header) + "\t")
+             new_molis.write(str("\r\n"))#add new line readable in windows notepad
+   
+               #iterate through molis_list writing to file
+             for item in molis_list:
+                for i in item:
+                   new_molis.write(i + "\t")
+                new_molis.write("\r\n")
+                print str(i)
+   
+             print checkfile + " file written" 
+             print newfile + " file written"   
+             self.messageFrame.addItem(checkfile + " file written")
+             self.messageFrame.addItem(newfile + " file written")
+             new_molis.close()
+             check_list.close()
+  
+    def close_app(self):
+       self.close()
+       
+    
+       
+
+def main():
+    app = QtGui.QApplication(sys.argv)  # A new instance of QApplication
+    form = convertApp()  # We set the form to be convertApp (design)
+    form.show()  # Show the form
+    app.exec_()  # and execute the app
+
+
+if __name__ == '__main__':  # if we're running file directly and not importing it
+    main()  # run the main function
